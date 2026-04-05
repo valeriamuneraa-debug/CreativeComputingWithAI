@@ -51,7 +51,9 @@
 4. If the AI is uncertain whether something is a design decision, it treats it as one and waits for direction.
 
 ## Current Status
-**Session 2 complete.** Infrastructure scaffolded. Vite project structure is in place. GitHub Actions deploy workflow is configured. Plumbing test (JS → DOM → CSS) is in place and labeled for removal.
+**Session 2 complete.** Infrastructure live on GitHub Pages.
+    Plumbing test confirmed. Revert skipped due to single-commit structure.
+    Next: Write Design Intent before Session 3 on Monday 3/30.
 
 **Awaiting Design Intent from Art Director before any creative coding begins.**
 
