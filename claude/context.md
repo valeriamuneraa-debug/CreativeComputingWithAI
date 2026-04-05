@@ -51,12 +51,17 @@
 4. If the AI is uncertain whether something is a design decision, it treats it as one and waits for direction.
 
 ## Current Status
-**Session 2 complete.** Infrastructure live on GitHub Pages.
-    Plumbing test confirmed. Revert skipped due to single-commit structure.
-    Next: Write Design Intent before Session 3 on Monday 3/30.
+**Session 3 complete.** HTML structure and CSS layout built from Design Intent.
 
-**Awaiting Design Intent from Art Director before any creative coding begins.**
+- `index.html` — full semantic structure: intro overlay, 5 character cards, left/right arrows, text overlays
+- `src/css/style.css` — all 5 era palettes as CSS custom properties, hover transitions, `.selected` class, intro animation
+- `src/main.js` — test scaffold removed; clean entry point
+- `src/js/selector.js` — untouched; JS logic deferred to Session 4
+
+**Art Director confirmed:**
+- Intro overlay copy: DÉFILÉ
+- 1990s text color: #1A1A1A on #B2B2B2 — confirmed correct
 
 ## Next Steps
-1. Art Director writes Design Intent document.
-2. Session 3 begins — creative coding based on Design Intent.
+1. Session 4 — Wire carousel logic in `src/js/selector.js` (arrow navigation, `.active` toggle, `.selected` state)
+2. Session 4 or later — Replace placeholder divs with real character images

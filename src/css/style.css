@@ -1,1 +1,485 @@
-/* Design Intent styles go here */
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — ERA COLOR PALETTES
+   ============================================================ */
+:root {
+  /* 1960s — Twiggy (André Courrèges) */
+  --era-1960s-bg:         #3E2A35;
+  --era-1960s-accent:     #8B4513;
+  --era-1960s-highlight:  #D2B48C;
+  --era-1960s-support-a:  #704214;
+  --era-1960s-support-b:  #36454F;
+
+  /* 1970s — Lauren Hutton (Yves Saint Laurent) */
+  --era-1970s-bg:         #4A4A4A;
+  --era-1970s-depth:      #2C2C2C;
+  --era-1970s-neutral:    #F1E9D7;
+  --era-1970s-support-a:  #6B705C;
+  --era-1970s-support-b:  #A9A9A9;
+
+  /* 1980s — Christie Brinkley (Versace) */
+  --era-1980s-bg:         #555B60;
+  --era-1980s-depth:      #1A1D20;
+  --era-1980s-gold:       #D4AF37;
+  --era-1980s-silver:     #C0C0C0;
+  --era-1980s-highlight:  #F5F5F5;
+
+  /* 1990s — Kate Moss (Calvin Klein / Helmut Lang) */
+  --era-1990s-bg:         #B2B2B2;
+  --era-1990s-shadow:     #404040;
+  --era-1990s-midtone:    #7A7A7A;
+  --era-1990s-highlight:  #F2F2F2;
+  --era-1990s-anchor:     #1A1A1A;
+
+  /* 2000s — Gisele Bündchen (Dior by Galliano) */
+  --era-2000s-bg:         #4D5663;
+  --era-2000s-accent:     #925E4D;
+  --era-2000s-support-a:  #5D6456;
+  --era-2000s-support-b:  #2A2F35;
+  --era-2000s-hardware:   #B09168;
+}
+
+/* ============================================================
+   INTRO OVERLAY
+   Editorial fashion cover state. Fades out automatically via CSS.
+   Art Director: confirm text copy in index.html .intro-headline
+   ============================================================ */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* pointer-events: none keeps the selector interactive underneath */
+  pointer-events: none;
+  animation: intro-exit 4s ease-in-out 1s forwards;
+}
+
+.intro-content {
+  text-align: center;
+}
+
+.intro-headline {
+  font-family: 'GFS Didot', serif;
+  color: #f0ece4;
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  display: block;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: intro-text-appear 1.2s ease-out 0.2s forwards;
+}
+
+@keyframes intro-text-appear {
+  from {
+    opacity: 0;
+    letter-spacing: 1em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.5em;
+  }
+}
+
+@keyframes intro-exit {
+  0%   { opacity: 1; visibility: visible; }
+  65%  { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* ============================================================
+   APP CONTAINER
+   ============================================================ */
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   CHARACTER CARDS — BASE
+   All cards stacked; .active is shown. JS toggles .active in Session 4.
+   ============================================================ */
+.character-card {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.character-card.active {
+  display: flex;
+}
+
+/* Spotlight overlay pseudo-element — revealed on hover */
+.character-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.character-card:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+   CHARACTER IMAGE PLACEHOLDER
+   ~60vh tall, centered, desaturated initial state.
+   Replace div with <img> in Session 4.
+   ============================================================ */
+.character-image-placeholder {
+  position: relative;
+  z-index: 0;
+  width: 38vw;
+  height: 60vh;
+  transition: filter 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+/* ============================================================
+   ERA-SPECIFIC STYLES
+   ============================================================ */
+
+/* --- 1960s — Twiggy (André Courrèges) ---
+   Initial: sepia/flat sketch
+   Hover: full color + warm grainy 16mm film glow (radial, highlight color)
+   ------------------------------------------------------------ */
+.character-card--1960s {
+  background-color: var(--era-1960s-bg);
+}
+
+.character-card--1960s .character-image-placeholder {
+  background-color: var(--era-1960s-accent);
+  filter: grayscale(1) sepia(0.5) contrast(0.8) brightness(0.85);
+}
+
+.character-card--1960s:hover .character-image-placeholder {
+  filter: grayscale(0) sepia(0) contrast(1) brightness(1);
+}
+
+.character-card--1960s::after {
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    rgba(210, 180, 140, 0.5) 0%,   /* --era-1960s-highlight */
+    rgba(139,  69,  19, 0.2) 45%,  /* --era-1960s-accent */
+    transparent 70%
+  );
+}
+
+/* --- 1970s — Lauren Hutton (Yves Saint Laurent) ---
+   Initial: dusty gray blueprint
+   Hover: full color + sharp dramatic white with slight haze (radial, neutral color)
+   ------------------------------------------------------------ */
+.character-card--1970s {
+  background-color: var(--era-1970s-bg);
+}
+
+.character-card--1970s .character-image-placeholder {
+  background-color: var(--era-1970s-support-a);
+  filter: grayscale(1) contrast(0.7) brightness(0.8) sepia(0.15);
+}
+
+.character-card--1970s:hover .character-image-placeholder {
+  filter: grayscale(0) contrast(1.05) brightness(1);
+}
+
+.character-card--1970s::after {
+  background: radial-gradient(
+    ellipse at 50% 15%,
+    rgba(241, 233, 215, 0.65) 0%,  /* --era-1970s-neutral */
+    rgba(241, 233, 215, 0.15) 38%,
+    transparent 62%
+  );
+}
+
+/* --- 1980s — Christie Brinkley (Versace) ---
+   Initial: muted gray-cream
+   Hover: silver and gold flash + warm golden halo (radial, gold + silver)
+   ------------------------------------------------------------ */
+.character-card--1980s {
+  background-color: var(--era-1980s-bg);
+}
+
+.character-card--1980s .character-image-placeholder {
+  background-color: var(--era-1980s-silver);
+  filter: grayscale(1) contrast(0.65) brightness(0.85) sepia(0.1);
+}
+
+.character-card--1980s:hover .character-image-placeholder {
+  filter: grayscale(0) contrast(1.1) brightness(1.05) saturate(1.2);
+}
+
+.character-card--1980s::after {
+  background: radial-gradient(
+    ellipse at 50% 25%,
+    rgba(212, 175,  55, 0.55) 0%,  /* --era-1980s-gold */
+    rgba(192, 192, 192, 0.25) 38%, /* --era-1980s-silver */
+    transparent 62%
+  );
+}
+
+/* --- 1990s — Kate Moss (Calvin Klein / Helmut Lang) ---
+   Initial: cold light gray line art
+   Hover: concrete-gray silk + cold top-down white (radial, highlight color)
+   Note: light bg (#B2B2B2) — text uses anchor color #1A1A1A for contrast
+   ------------------------------------------------------------ */
+.character-card--1990s {
+  background-color: var(--era-1990s-bg);
+}
+
+.character-card--1990s .character-image-placeholder {
+  background-color: var(--era-1990s-midtone);
+  filter: grayscale(1) contrast(0.55) brightness(1.15);
+}
+
+.character-card--1990s:hover .character-image-placeholder {
+  filter: grayscale(0.15) contrast(0.95) brightness(1);
+}
+
+.character-card--1990s::after {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(242, 242, 242, 0.6) 0%,   /* --era-1990s-highlight */
+    rgba(242, 242, 242, 0.15) 28%,
+    transparent 52%
+  );
+}
+
+/* 1990s text override: dark text for legibility on light background */
+.character-card--1990s .character-name,
+.character-card--1990s .character-year,
+.character-card--1990s .character-brand {
+  color: var(--era-1990s-anchor);
+}
+
+/* --- 2000s — Gisele Bündchen (Dior by Galliano) ---
+   Initial: colorless busy blueprint
+   Hover: full theatrical color + roving theater stage light (asymmetric radial)
+   ------------------------------------------------------------ */
+.character-card--2000s {
+  background-color: var(--era-2000s-bg);
+}
+
+.character-card--2000s .character-image-placeholder {
+  background-color: var(--era-2000s-support-a);
+  filter: grayscale(1) contrast(0.6) brightness(0.78);
+}
+
+.character-card--2000s:hover .character-image-placeholder {
+  filter: grayscale(0) contrast(1.15) brightness(1.05) saturate(1.3);
+}
+
+/* Asymmetric spotlight — offset center simulates roving stage light */
+.character-card--2000s::after {
+  background: radial-gradient(
+    ellipse at 40% 35%,
+    rgba(176, 145, 104, 0.6) 0%,   /* --era-2000s-hardware */
+    rgba(146,  94,  77, 0.25) 38%, /* --era-2000s-accent */
+    transparent 65%
+  );
+}
+
+/* ============================================================
+   CHARACTER TEXT OVERLAYS
+   Top-left: name (Didot 48px) + year (Montserrat 32px)
+   Bottom-right: brand (Montserrat 24px)
+   ============================================================ */
+.character-text {
+  position: absolute;
+  z-index: 2;
+}
+
+.character-text--top-left {
+  top: 48px;
+  left: 64px;
+}
+
+.character-text--bottom-right {
+  bottom: 48px;
+  right: 64px;
+  text-align: right;
+}
+
+.character-name {
+  font-family: 'GFS Didot', serif;
+  font-size: 48px;
+  font-weight: normal;
+  line-height: 1.1;
+  color: #f0ece4;
+  letter-spacing: 0.02em;
+}
+
+.character-year {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: #f0ece4;
+  margin-top: 8px;
+  letter-spacing: 0.06em;
+}
+
+.character-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #f0ece4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   ARROW BUTTONS
+   Minimal, non-distracting. Absolute-positioned over the carousel.
+   ============================================================ */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  color: rgba(240, 236, 228, 0.45);
+  transition: color 300ms ease-in-out;
+  outline: none;
+}
+
+.arrow:hover {
+  color: rgba(240, 236, 228, 1);
+}
+
+.arrow--prev {
+  left: 24px;
+}
+
+.arrow--next {
+  right: 24px;
+}
+
+.arrow-icon {
+  font-size: 32px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  display: block;
+  line-height: 1;
+}
+
+/* ============================================================
+   .SELECTED STATE
+   Applied by JS (Session 4) after user selects a character.
+   Subtle upward scale shift to signal selection.
+   ============================================================ */
+.character-card.selected .character-image-placeholder {
+  transform: scale(1.04) translateY(-10px);
+  filter: grayscale(0) contrast(1) brightness(1);
+}
+
+/* ============================================================
+   RESPONSIVE — Laptop / smaller screens
+   ============================================================ */
+@media (max-width: 1280px) {
+  .character-image-placeholder {
+    width: 44vw;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .character-image-placeholder {
+    width: 52vw;
+    height: 58vh;
+  }
+
+  .character-name {
+    font-size: 36px;
+  }
+
+  .character-year {
+    font-size: 26px;
+  }
+
+  .character-brand {
+    font-size: 20px;
+  }
+
+  .character-text--top-left {
+    top: 32px;
+    left: 40px;
+  }
+
+  .character-text--bottom-right {
+    bottom: 32px;
+    right: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .character-image-placeholder {
+    width: 72vw;
+    height: 55vh;
+  }
+
+  .character-name {
+    font-size: 28px;
+  }
+
+  .character-year {
+    font-size: 20px;
+  }
+
+  .character-brand {
+    font-size: 16px;
+  }
+
+  .character-text--top-left {
+    top: 24px;
+    left: 24px;
+  }
+
+  .character-text--bottom-right {
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .arrow--prev { left: 12px; }
+  .arrow--next { right: 12px; }
+
+  .arrow-icon { font-size: 24px; }
+}

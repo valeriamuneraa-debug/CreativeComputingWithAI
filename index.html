@@ -4,13 +4,177 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fashion Era Selector — AI 201</title>
+
+    <!-- Google Fonts: GFS Didot + Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   </head>
   <body>
 
-    <!-- TEMP TEST — REMOVE BEFORE DESIGN PHASE -->
-    <h1 id="status-text">Plumbing Test Active</h1>
-    <button id="test-btn">Run Plumbing Test</button>
-    <!-- END TEMP TEST -->
+    <!-- ============================================================
+         INTRO OVERLAY — Editorial fashion cover state
+         CSS animation transitions this out automatically.
+         Art Director: confirm headline copy inside .intro-headline
+         ============================================================ -->
+    <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+      <div class="intro-content">
+        <span class="intro-headline">DÉFILÉ</span>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MAIN APP — Character Selector
+         ============================================================ -->
+    <main id="app" class="app-container">
+
+      <!-- Left Navigation Arrow -->
+      <button class="arrow arrow--prev" id="btn-prev" aria-label="Previous character">
+        <span class="arrow-icon">&#8592;</span>
+      </button>
+
+      <!-- ============================================================
+           CAROUSEL — 5 Character Cards (JS toggles .active in Session 4)
+           First card has .active set here for layout preview.
+           ============================================================ -->
+      <div class="carousel" id="carousel">
+
+        <!-- CHARACTER 1: 1960s — Twiggy (André Courrèges) -->
+        <article
+          class="character-card character-card--1960s active"
+          data-era="1960s"
+          data-index="0"
+          aria-label="1960s — Twiggy"
+        >
+          <!-- IMAGE PLACEHOLDER: Twiggy · 1960s · André Courrèges
+               Background set to era primary base color: #3E2A35
+               Replace with <img> in Session 4 -->
+          <div
+            class="character-image-placeholder"
+            role="img"
+            aria-label="Character image placeholder — Twiggy, 1960s, André Courrèges"
+          ></div>
+
+          <!-- Top-left text: name + year -->
+          <div class="character-text character-text--top-left">
+            <h1 class="character-name">Twiggy</h1>
+            <p class="character-year">1960s</p>
+          </div>
+
+          <!-- Bottom-right text: designer / brand label -->
+          <div class="character-text character-text--bottom-right">
+            <p class="character-brand">André Courrèges</p>
+          </div>
+        </article>
+
+        <!-- CHARACTER 2: 1970s — Lauren Hutton (Yves Saint Laurent) -->
+        <article
+          class="character-card character-card--1970s"
+          data-era="1970s"
+          data-index="1"
+          aria-label="1970s — Lauren Hutton"
+        >
+          <!-- IMAGE PLACEHOLDER: Lauren Hutton · 1970s · Yves Saint Laurent
+               Background set to era primary base color: #4A4A4A -->
+          <div
+            class="character-image-placeholder"
+            role="img"
+            aria-label="Character image placeholder — Lauren Hutton, 1970s, Yves Saint Laurent"
+          ></div>
+
+          <div class="character-text character-text--top-left">
+            <h1 class="character-name">Lauren Hutton</h1>
+            <p class="character-year">1970s</p>
+          </div>
+
+          <div class="character-text character-text--bottom-right">
+            <p class="character-brand">Yves Saint Laurent</p>
+          </div>
+        </article>
+
+        <!-- CHARACTER 3: 1980s — Christie Brinkley (Versace) -->
+        <article
+          class="character-card character-card--1980s"
+          data-era="1980s"
+          data-index="2"
+          aria-label="1980s — Christie Brinkley"
+        >
+          <!-- IMAGE PLACEHOLDER: Christie Brinkley · 1980s · Versace
+               Background set to era primary base color: #555B60 -->
+          <div
+            class="character-image-placeholder"
+            role="img"
+            aria-label="Character image placeholder — Christie Brinkley, 1980s, Versace"
+          ></div>
+
+          <div class="character-text character-text--top-left">
+            <h1 class="character-name">Christie Brinkley</h1>
+            <p class="character-year">1980s</p>
+          </div>
+
+          <div class="character-text character-text--bottom-right">
+            <p class="character-brand">Versace</p>
+          </div>
+        </article>
+
+        <!-- CHARACTER 4: 1990s — Kate Moss (Calvin Klein / Helmut Lang) -->
+        <article
+          class="character-card character-card--1990s"
+          data-era="1990s"
+          data-index="3"
+          aria-label="1990s — Kate Moss"
+        >
+          <!-- IMAGE PLACEHOLDER: Kate Moss · 1990s · Calvin Klein / Helmut Lang
+               Background set to era primary base color: #B2B2B2 -->
+          <div
+            class="character-image-placeholder"
+            role="img"
+            aria-label="Character image placeholder — Kate Moss, 1990s, Calvin Klein / Helmut Lang"
+          ></div>
+
+          <div class="character-text character-text--top-left">
+            <h1 class="character-name">Kate Moss</h1>
+            <p class="character-year">1990s</p>
+          </div>
+
+          <div class="character-text character-text--bottom-right">
+            <p class="character-brand">Calvin Klein / Helmut Lang</p>
+          </div>
+        </article>
+
+        <!-- CHARACTER 5: 2000s — Gisele Bündchen (Dior by Galliano) -->
+        <article
+          class="character-card character-card--2000s"
+          data-era="2000s"
+          data-index="4"
+          aria-label="2000s — Gisele Bündchen"
+        >
+          <!-- IMAGE PLACEHOLDER: Gisele Bündchen · 2000s · Dior by Galliano
+               Background set to era primary base color: #4D5663 -->
+          <div
+            class="character-image-placeholder"
+            role="img"
+            aria-label="Character image placeholder — Gisele Bündchen, 2000s, Dior by Galliano"
+          ></div>
+
+          <div class="character-text character-text--top-left">
+            <h1 class="character-name">Gisele Bündchen</h1>
+            <p class="character-year">2000s</p>
+          </div>
+
+          <div class="character-text character-text--bottom-right">
+            <p class="character-brand">Dior by Galliano</p>
+          </div>
+        </article>
+
+      </div><!-- /carousel -->
+
+      <!-- Right Navigation Arrow -->
+      <button class="arrow arrow--next" id="btn-next" aria-label="Next character">
+        <span class="arrow-icon">&#8594;</span>
+      </button>
+
+    </main><!-- /app -->
 
     <script type="module" src="/src/main.js"></script>
   </body>
