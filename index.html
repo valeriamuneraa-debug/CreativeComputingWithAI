@@ -12,20 +12,14 @@
   </head>
   <body>
 
-    <!-- ============================================================
-         INTRO OVERLAY — Editorial fashion cover state
-         CSS animation transitions this out automatically.
-         Art Director: confirm headline copy inside .intro-headline
-         ============================================================ -->
+    <!-- INTRO OVERLAY — JS controls timing (2s hold, 600ms fade) -->
     <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
       <div class="intro-content">
         <span class="intro-headline">DÉFILÉ</span>
       </div>
     </div>
 
-    <!-- ============================================================
-         MAIN APP — Character Selector
-         ============================================================ -->
+    <!-- MAIN APP — Character Selector -->
     <main id="app" class="app-container">
 
       <!-- Left Navigation Arrow -->
@@ -33,10 +27,7 @@
         <span class="arrow-icon">&#8592;</span>
       </button>
 
-      <!-- ============================================================
-           CAROUSEL — 5 Character Cards (JS toggles .active in Session 4)
-           First card has .active set here for layout preview.
-           ============================================================ -->
+      <!-- CAROUSEL — JS toggles .active; first card active by default -->
       <div class="carousel" id="carousel">
 
         <!-- CHARACTER 1: 1960s — Twiggy (André Courrèges) -->
@@ -46,22 +37,20 @@
           data-index="0"
           aria-label="1960s — Twiggy"
         >
-          <!-- IMAGE PLACEHOLDER: Twiggy · 1960s · André Courrèges
-               Background set to era primary base color: #3E2A35
-               Replace with <img> in Session 4 -->
-          <div
-            class="character-image-placeholder"
-            role="img"
-            aria-label="Character image placeholder — Twiggy, 1960s, André Courrèges"
-          ></div>
+          <!-- Background environment image — src set by JS -->
+          <div class="era-background" aria-hidden="true"></div>
 
-          <!-- Top-left text: name + year -->
+          <!-- Character image — src set by JS -->
+          <img
+            class="character-image-placeholder"
+            alt="Twiggy, 1960s, André Courrèges"
+          >
+
           <div class="character-text character-text--top-left">
             <h1 class="character-name">Twiggy</h1>
             <p class="character-year">1960s</p>
           </div>
 
-          <!-- Bottom-right text: designer / brand label -->
           <div class="character-text character-text--bottom-right">
             <p class="character-brand">André Courrèges</p>
           </div>
@@ -74,13 +63,12 @@
           data-index="1"
           aria-label="1970s — Lauren Hutton"
         >
-          <!-- IMAGE PLACEHOLDER: Lauren Hutton · 1970s · Yves Saint Laurent
-               Background set to era primary base color: #4A4A4A -->
-          <div
+          <div class="era-background" aria-hidden="true"></div>
+
+          <img
             class="character-image-placeholder"
-            role="img"
-            aria-label="Character image placeholder — Lauren Hutton, 1970s, Yves Saint Laurent"
-          ></div>
+            alt="Lauren Hutton, 1970s, Yves Saint Laurent"
+          >
 
           <div class="character-text character-text--top-left">
             <h1 class="character-name">Lauren Hutton</h1>
@@ -99,13 +87,12 @@
           data-index="2"
           aria-label="1980s — Christie Brinkley"
         >
-          <!-- IMAGE PLACEHOLDER: Christie Brinkley · 1980s · Versace
-               Background set to era primary base color: #555B60 -->
-          <div
+          <div class="era-background" aria-hidden="true"></div>
+
+          <img
             class="character-image-placeholder"
-            role="img"
-            aria-label="Character image placeholder — Christie Brinkley, 1980s, Versace"
-          ></div>
+            alt="Christie Brinkley, 1980s, Versace"
+          >
 
           <div class="character-text character-text--top-left">
             <h1 class="character-name">Christie Brinkley</h1>
@@ -124,13 +111,12 @@
           data-index="3"
           aria-label="1990s — Kate Moss"
         >
-          <!-- IMAGE PLACEHOLDER: Kate Moss · 1990s · Calvin Klein / Helmut Lang
-               Background set to era primary base color: #B2B2B2 -->
-          <div
+          <div class="era-background" aria-hidden="true"></div>
+
+          <img
             class="character-image-placeholder"
-            role="img"
-            aria-label="Character image placeholder — Kate Moss, 1990s, Calvin Klein / Helmut Lang"
-          ></div>
+            alt="Kate Moss, 1990s, Calvin Klein / Helmut Lang"
+          >
 
           <div class="character-text character-text--top-left">
             <h1 class="character-name">Kate Moss</h1>
@@ -149,13 +135,12 @@
           data-index="4"
           aria-label="2000s — Gisele Bündchen"
         >
-          <!-- IMAGE PLACEHOLDER: Gisele Bündchen · 2000s · Dior by Galliano
-               Background set to era primary base color: #4D5663 -->
-          <div
+          <div class="era-background" aria-hidden="true"></div>
+
+          <img
             class="character-image-placeholder"
-            role="img"
-            aria-label="Character image placeholder — Gisele Bündchen, 2000s, Dior by Galliano"
-          ></div>
+            alt="Gisele Bündchen, 2000s, Dior by Galliano"
+          >
 
           <div class="character-text character-text--top-left">
             <h1 class="character-name">Gisele Bündchen</h1>
@@ -174,7 +159,7 @@
         <span class="arrow-icon">&#8594;</span>
       </button>
 
-    </main><!-- /app -->
+    </main>
 
     <script type="module" src="/src/main.js"></script>
   </body>

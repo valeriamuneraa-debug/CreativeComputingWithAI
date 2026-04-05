@@ -134,14 +134,20 @@ body {
 .character-card {
   position: absolute;
   inset: 0;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* Opacity-based visibility so 400ms fade can be animated.
+     display:none cannot be transitioned. */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease-in-out;
 }
 
 .character-card.active {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Spotlight overlay pseudo-element — revealed on hover */
@@ -283,9 +289,13 @@ body {
 
 /* 1990s text override: dark text for legibility on light background */
 .character-card--1990s .character-name,
-.character-card--1990s .character-year,
+.character-card--1990s .character-year {
+  color: #F2F2F2;
+}
+
 .character-card--1990s .character-brand {
-  color: var(--era-1990s-anchor);
+  color: #F2F2F2 !important;
+  letter-spacing: 0.15em;
 }
 
 /* --- 2000s — Gisele Bündchen (Dior by Galliano) ---
@@ -409,6 +419,40 @@ body {
 .character-card.selected .character-image-placeholder {
   transform: scale(1.04) translateY(-10px);
   filter: grayscale(0) contrast(1) brightness(1);
+}
+
+/* ============================================================
+   ERA BACKGROUND IMAGE LAYER
+   Sits behind character. JS sets background-image.
+   Dark overlay via ::after keeps it from competing with character.
+   ============================================================ */
+.era-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.era-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   CHARACTER IMAGE
+   Replaces placeholder div. z-index above background layer.
+   object-position: top — keeps face in frame on crop.
+   ============================================================ */
+img.character-image-placeholder {
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 /* ============================================================

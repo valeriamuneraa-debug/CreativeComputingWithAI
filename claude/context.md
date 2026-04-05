@@ -51,17 +51,22 @@
 4. If the AI is uncertain whether something is a design decision, it treats it as one and waits for direction.
 
 ## Current Status
-**Session 3 complete.** HTML structure and CSS layout built from Design Intent.
+**Session 4 complete.** All interactivity wired. Character and background images integrated.
 
-- `index.html` — full semantic structure: intro overlay, 5 character cards, left/right arrows, text overlays
-- `src/css/style.css` — all 5 era palettes as CSS custom properties, hover transitions, `.selected` class, intro animation
-- `src/main.js` — test scaffold removed; clean entry point
-- `src/js/selector.js` — untouched; JS logic deferred to Session 4
+- `src/js/selector.js` — carousel navigation, character selection, intro overlay timing, image wiring
+- `index.html` — placeholder divs replaced with `<img>` tags; `.era-background` div added to each card
+- `src/css/style.css` — two required additions: opacity-based card fade (display:none is not animatable), `.era-background` layer, `img.character-image-placeholder` rules
+- `src/main.js` — unchanged
+
+**Image files in use:**
+- Characters: character-60s-rendered.png, character-70s.png, character-80s.png, character-90s.png, character-00s.png
+- Backgrounds: background-60s-FINAL.png, background-70s-FINAL.png, background-80s-FINAL.png, background-90s-FINAL.png, background-00s-FINAL.png
+- All paths resolved via `new URL('../assets/images/...', import.meta.url).href` for Vite build compatibility
 
 **Art Director confirmed:**
 - Intro overlay copy: DÉFILÉ
+- 1960s character: character-60s-rendered.png (not line version)
 - 1990s text color: #1A1A1A on #B2B2B2 — confirmed correct
 
 ## Next Steps
-1. Session 4 — Wire carousel logic in `src/js/selector.js` (arrow navigation, `.active` toggle, `.selected` state)
-2. Session 4 or later — Replace placeholder divs with real character images
+- Session 5 TBD — review live build, refinements, or additional sessions as directed
