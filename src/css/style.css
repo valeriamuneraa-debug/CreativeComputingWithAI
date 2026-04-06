@@ -161,7 +161,7 @@ body {
   z-index: 1;
 }
 
-.character-card:hover::after {
+.character-card:has(.character-image-placeholder:hover)::after {
   opacity: 1;
 }
 
@@ -173,8 +173,8 @@ body {
 .character-image-placeholder {
   position: relative;
   z-index: 0;
-  width: 38vw;
-  height: 60vh;
+  width: auto;
+  height: 80vh;
   transition: filter 400ms ease-in-out, transform 400ms ease-in-out;
 }
 
@@ -191,20 +191,20 @@ body {
 }
 
 .character-card--1960s .character-image-placeholder {
-  background-color: var(--era-1960s-accent);
-  filter: grayscale(1) sepia(0.5) contrast(0.8) brightness(0.85);
+  background: transparent;
+  filter: grayscale(1) contrast(0.9) brightness(1.05);
 }
 
-.character-card--1960s:hover .character-image-placeholder {
+.character-card--1960s .character-image-placeholder:hover {
   filter: grayscale(0) sepia(0) contrast(1) brightness(1);
 }
 
 .character-card--1960s::after {
   background: radial-gradient(
-    ellipse at 50% 30%,
-    rgba(210, 180, 140, 0.5) 0%,   /* --era-1960s-highlight */
-    rgba(139,  69,  19, 0.2) 45%,  /* --era-1960s-accent */
-    transparent 70%
+    ellipse at 50% 0%,
+    rgba(242, 242, 242, 0.6) 0%,
+    rgba(242, 242, 242, 0.15) 28%,
+    transparent 52%
   );
 }
 
@@ -217,20 +217,20 @@ body {
 }
 
 .character-card--1970s .character-image-placeholder {
-  background-color: var(--era-1970s-support-a);
+  background: transparent;
   filter: grayscale(1) contrast(0.7) brightness(0.8) sepia(0.15);
 }
 
-.character-card--1970s:hover .character-image-placeholder {
+.character-card--1970s .character-image-placeholder:hover {
   filter: grayscale(0) contrast(1.05) brightness(1);
 }
 
 .character-card--1970s::after {
   background: radial-gradient(
-    ellipse at 50% 15%,
-    rgba(241, 233, 215, 0.65) 0%,  /* --era-1970s-neutral */
-    rgba(241, 233, 215, 0.15) 38%,
-    transparent 62%
+    ellipse at 50% 0%,
+    rgba(242, 242, 242, 0.6) 0%,
+    rgba(242, 242, 242, 0.15) 28%,
+    transparent 52%
   );
 }
 
@@ -243,20 +243,20 @@ body {
 }
 
 .character-card--1980s .character-image-placeholder {
-  background-color: var(--era-1980s-silver);
+  background: transparent;
   filter: grayscale(1) contrast(0.65) brightness(0.85) sepia(0.1);
 }
 
-.character-card--1980s:hover .character-image-placeholder {
+.character-card--1980s .character-image-placeholder:hover {
   filter: grayscale(0) contrast(1.1) brightness(1.05) saturate(1.2);
 }
 
 .character-card--1980s::after {
   background: radial-gradient(
-    ellipse at 50% 25%,
-    rgba(212, 175,  55, 0.55) 0%,  /* --era-1980s-gold */
-    rgba(192, 192, 192, 0.25) 38%, /* --era-1980s-silver */
-    transparent 62%
+    ellipse at 50% 0%,
+    rgba(242, 242, 242, 0.6) 0%,
+    rgba(242, 242, 242, 0.15) 28%,
+    transparent 52%
   );
 }
 
@@ -270,11 +270,11 @@ body {
 }
 
 .character-card--1990s .character-image-placeholder {
-  background-color: var(--era-1990s-midtone);
+  background: transparent;
   filter: grayscale(1) contrast(0.55) brightness(1.15);
 }
 
-.character-card--1990s:hover .character-image-placeholder {
+.character-card--1990s .character-image-placeholder:hover {
   filter: grayscale(0.15) contrast(0.95) brightness(1);
 }
 
@@ -307,11 +307,11 @@ body {
 }
 
 .character-card--2000s .character-image-placeholder {
-  background-color: var(--era-2000s-support-a);
+  background: transparent;
   filter: grayscale(1) contrast(0.6) brightness(0.78);
 }
 
-.character-card--2000s:hover .character-image-placeholder {
+.character-card--2000s .character-image-placeholder:hover {
   filter: grayscale(0) contrast(1.15) brightness(1.05) saturate(1.3);
 }
 
@@ -323,6 +323,12 @@ body {
     rgba(146,  94,  77, 0.25) 38%, /* --era-2000s-accent */
     transparent 65%
   );
+}
+
+.character-card--2000s .character-image-placeholder img,
+.character-card--2000s img {
+  height: 65vh;
+  width: auto;
 }
 
 /* ============================================================
@@ -422,6 +428,37 @@ body {
 }
 
 /* ============================================================
+   CAROUSEL POSITION INDICATORS
+   5 dots — active one expands to a pill. Bottom center, fixed.
+   ============================================================ */
+.carousel-indicators {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 30;
+}
+
+.indicator {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #F2F2F2;
+  opacity: 0.35;
+  transition: width 300ms ease-in-out, border-radius 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.indicator.active {
+  width: 24px;
+  border-radius: 3px;
+  opacity: 1;
+}
+
+/* ============================================================
    ERA BACKGROUND IMAGE LAYER
    Sits behind character. JS sets background-image.
    Dark overlay via ::after keeps it from competing with character.
@@ -448,8 +485,8 @@ body {
    ============================================================ */
 img.character-image-placeholder {
   display: block;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center bottom;
   cursor: pointer;
   position: relative;
   z-index: 1;

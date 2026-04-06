@@ -2,47 +2,47 @@
 
 // ----------------------------------------------------------
 // CHARACTER DATA
-// All asset paths use import.meta.url so Vite handles them
-// correctly for both dev and the /CreativeComputingWithAI/ build.
+// Paths use ./src/assets/images/ — correct format for Vite dev server.
 // ----------------------------------------------------------
 const CHARACTERS = [
   {
     era:           '1960s',
     bgColor:       '#3E2A35',
-    characterImg:  new URL('../assets/images/character-60s-rendered.png', import.meta.url).href,
-    backgroundImg: new URL('../assets/images/background-60s-FINAL.png',   import.meta.url).href,
+    characterImg:  './src/assets/images/character-60s-FINAL.png',
+    backgroundImg: './src/assets/images/background-60s-FINAL.png',
   },
   {
     era:           '1970s',
     bgColor:       '#4A4A4A',
-    characterImg:  new URL('../assets/images/character-70s.png',           import.meta.url).href,
-    backgroundImg: new URL('../assets/images/background-70s-FINAL.png',    import.meta.url).href,
+    characterImg:  './src/assets/images/character-70s-FINAL.png',
+    backgroundImg: './src/assets/images/background-70s-FINAL.png',
   },
   {
     era:           '1980s',
     bgColor:       '#555B60',
-    characterImg:  new URL('../assets/images/character-80s.png',           import.meta.url).href,
-    backgroundImg: new URL('../assets/images/background-80s-FINAL.png',    import.meta.url).href,
+    characterImg:  './src/assets/images/character-80s-FINAL.png',
+    backgroundImg: './src/assets/images/background-80s-FINAL.png',
   },
   {
     era:           '1990s',
     bgColor:       '#B2B2B2',
-    characterImg:  new URL('../assets/images/character-90s.png',           import.meta.url).href,
-    backgroundImg: new URL('../assets/images/background-90s-FINAL.png',    import.meta.url).href,
+    characterImg:  './src/assets/images/character-90s-FINAL.png',
+    backgroundImg: './src/assets/images/background-90s-FINAL.png',
   },
   {
     era:           '2000s',
     bgColor:       '#4D5663',
-    characterImg:  new URL('../assets/images/character-00s.png',           import.meta.url).href,
-    backgroundImg: new URL('../assets/images/background-00s-FINAL.png',    import.meta.url).href,
+    characterImg:  './src/assets/images/character-00s-FINAL.png',
+    backgroundImg: './src/assets/images/background-00s-FINAL.png',
   },
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('intro-overlay');
-  const btnPrev = document.getElementById('btn-prev');
-  const btnNext = document.getElementById('btn-next');
-  const cards   = Array.from(document.querySelectorAll('.character-card'));
+  const overlay     = document.getElementById('intro-overlay');
+  const btnPrev     = document.getElementById('btn-prev');
+  const btnNext     = document.getElementById('btn-next');
+  const cards       = Array.from(document.querySelectorAll('.character-card'));
+  const indicators  = Array.from(document.querySelectorAll('.indicator'));
 
   let activeIndex   = 0;
   let selectedIndex = -1;   // -1 = no selection yet
@@ -83,12 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ----------------------------------------------------------
   // ACTIVATE CARD
-  // Swaps .active between cards; transitions body background color.
+  // Swaps .active between cards and indicators;
+  // transitions body background color.
   // ----------------------------------------------------------
   function activateCard(newIndex) {
     cards[activeIndex].classList.remove('active');
+    indicators[activeIndex].classList.remove('active');
+
     activeIndex = newIndex;
+
     cards[activeIndex].classList.add('active');
+    indicators[activeIndex].classList.add('active');
     document.body.style.backgroundColor = CHARACTERS[activeIndex].bgColor;
   }
 
