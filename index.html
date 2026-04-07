@@ -12,12 +12,40 @@
   </head>
   <body>
 
-    <!-- INTRO OVERLAY — JS controls timing (2s hold, 600ms fade) -->
+    <!-- INTRO OVERLAY — persistent black backdrop, never fades until button click -->
     <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+
+      <!-- DÉFILÉ — content fades out after 2s; overlay stays opaque -->
       <div class="intro-content">
         <span class="intro-headline">DÉFILÉ</span>
       </div>
-    </div>
+
+      <!-- Stage 1: Quote screen — shown after DÉFILÉ content fades -->
+      <div id="intro-stage-1">
+        <div class="intro-screen-inner">
+          <p class="intro-quote-p">
+            <span id="s1-quote-text"></span><span class="intro-cursor hidden" id="s1-q-cursor">|</span>
+          </p>
+          <p class="intro-attr-p">
+            <span id="s1-attr-text"></span><span class="intro-cursor hidden" id="s1-a-cursor">|</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Stage 2: Archive + button screen — shown after Stage 1 fades -->
+      <div id="intro-stage-2">
+        <div class="intro-screen-inner">
+          <p class="intro-body-p">
+            <span id="s2-body-text"></span><span class="intro-cursor hidden" id="s2-b-cursor">|</span>
+          </p>
+          <p class="intro-cta-p">
+            <span id="s2-cta-text"></span><span class="intro-cursor hidden" id="s2-c-cursor">|</span>
+          </p>
+          <button id="intro-button">ENTER THE ARCHIVE</button>
+        </div>
+      </div>
+
+    </div><!-- /intro-overlay -->
 
     <!-- MAIN APP — Character Selector -->
     <main id="app" class="app-container">
@@ -174,6 +202,29 @@
       </div>
 
     </main>
+
+    <!-- Flash overlay — fullscreen image sequence on character click -->
+    <div id="flash-overlay">
+      <img id="flash-img" src="" alt="">
+    </div>
+
+    <!-- Detail overlay — character detail screen after flash -->
+    <div id="detail-overlay">
+      <button id="detail-back">&#8592; BACK</button>
+      <div id="detail-moodboard">
+        <img id="detail-moodboard-img" src="" alt="">
+        <div id="detail-moodboard-dim"></div>
+      </div>
+      <!-- Gradient veil behind right-side text -->
+      <div id="detail-right-gradient"></div>
+      <div id="detail-left">
+        <h2 id="detail-name"></h2>
+        <p id="detail-era-label"></p>
+      </div>
+      <div id="detail-right">
+        <p id="detail-context"></p>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

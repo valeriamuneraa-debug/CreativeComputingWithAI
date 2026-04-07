@@ -51,22 +51,39 @@
 4. If the AI is uncertain whether something is a design decision, it treats it as one and waits for direction.
 
 ## Current Status
-**Session 4 complete.** All interactivity wired. Character and background images integrated.
+**Session 5 complete.** Character detail screen added.
 
-- `src/js/selector.js` — carousel navigation, character selection, intro overlay timing, image wiring
-- `index.html` — placeholder divs replaced with `<img>` tags; `.era-background` div added to each card
-- `src/css/style.css` — two required additions: opacity-based card fade (display:none is not animatable), `.era-background` layer, `img.character-image-placeholder` rules
+### Active files
+- `src/js/selector.js` — carousel navigation, character selection, intro overlay timing, image wiring, flash sequence, detail screen
+- `index.html` — `#flash-overlay` and `#detail-overlay` added before `</body>`
+- `src/css/style.css` — flash overlay styles, detail overlay styles (moodboard, left panel, right panel, back button)
 - `src/main.js` — unchanged
 
-**Image files in use:**
-- Characters: character-60s-rendered.png, character-70s.png, character-80s.png, character-90s.png, character-00s.png
-- Backgrounds: background-60s-FINAL.png, background-70s-FINAL.png, background-80s-FINAL.png, background-90s-FINAL.png, background-00s-FINAL.png
-- All paths resolved via `new URL('../assets/images/...', import.meta.url).href` for Vite build compatibility
+### Intro overlay (completed, do not modify)
+- DÉFILÉ fades in via CSS animation; overlay backdrop stays opaque throughout
+- Stage 1: quote typewriter → 3s hold → fade to black
+- Stage 2: archive body typewriter → "Choose your era." → ENTER THE ARCHIVE button
+- Button click fades the overlay, reveals character selector
 
-**Art Director confirmed:**
-- Intro overlay copy: DÉFILÉ
-- 1960s character: character-60s-rendered.png (not line version)
-- 1990s text color: #1A1A1A on #B2B2B2 — confirmed correct
+### Character detail flow (Session 5)
+On character image click:
+1. **Flash sequence** (`#flash-overlay`, z-index 3000) — 30 images at 100ms each, hard cuts, object-fit cover
+2. **Detail screen** (`#detail-overlay`, z-index 2000):
+   - Moodboard background (object-fit cover) + black dim overlay (rgba 0,0,0,0.55)
+   - Left: character name (GFS Didot 52px) + era (Montserrat 18px) fade in over 400ms
+   - Right: context description typewriter at 20ms/char, no cursor, starts after 400ms
+   - ← BACK button: fades detail screen over 500ms, returns to selector
+
+### Image paths
+- Characters: `./src/assets/images/character-[era]-FINAL.png`
+- Backgrounds: `./src/assets/images/background-[era]-FINAL.png`
+- Flash images: `./src/assets/images/[Folder]/[prefix]-00.jpg` through `[prefix]-29.jpg`
+  - Twiggy/twiggy-NN.jpg, LaurenHutton/lauren-hutton-NN.jpg, ChristieBrinkley/christie-brinkley-NN.jpg
+  - KateMoss/kate-moss-NN.jpg, Gisele/gisele-NN.jpg
+- Moodboards: `./src/assets/images/moodboard-[era].jpg`
+
+### CHARACTERS array keys
+`era`, `name`, `bgColor`, `characterImg`, `backgroundImg`, `flashFolder`, `flashPrefix`, `moodboard`, `description`
 
 ## Next Steps
-- Session 5 TBD — review live build, refinements, or additional sessions as directed
+- Session 6 TBD — review live build, refinements, or additional sessions as directed
