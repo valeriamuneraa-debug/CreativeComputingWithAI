@@ -75,8 +75,8 @@ const CHARACTERS = [
     bgColor:       '#4D5663',
     characterImg:  './src/assets/images/character-00s-FINAL.png',
     backgroundImg: './src/assets/images/background-00s-FINAL.png',
-    flashFolder:   './src/assets/images/Gisele/',
-    flashPrefix:   'gisele',
+    flashFolder:   './src/assets/images/GiseleBundchen/',
+    flashPrefix:   'gisele-bundchen',
     moodboard:     './src/assets/images/moodboard-00s.jpg',
     description:
       'Gisele B\u00fcndchen walked into the early 2000s like a weather system. In an era of logomania ' +
@@ -230,6 +230,7 @@ async function runFlash(index) {
   const flashOverlay = document.getElementById('flash-overlay');
   const flashImg     = document.getElementById('flash-img');
 
+  document.getElementById('app').style.visibility = 'hidden';
   flashOverlay.style.display = 'block';
 
   const ext = await detectFlashFormat(character);
@@ -385,6 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   detailBack.addEventListener('click', async () => {
     detailToken++;  // cancel any in-progress typewriter
+
+    // Restore selector and correct body color BEFORE overlay fades
+    document.body.style.backgroundColor = CHARACTERS[activeIndex].bgColor;
+    document.getElementById('app').style.visibility = 'visible';
+
+    // Now fade out the detail overlay over the already-visible selector
     detailOverlay.style.transition = 'opacity 500ms ease-in-out';
     detailOverlay.style.opacity    = '0';
     await sleep(500);

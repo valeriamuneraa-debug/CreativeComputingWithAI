@@ -680,10 +680,9 @@ img.character-image-placeholder {
 }
 
 #detail-left {
-  position: absolute;
-  left: 48px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: fixed;
+  left: 15vw;
+  top: 35vh;
   z-index: 1;
   opacity: 0;
   transition: opacity 400ms ease-in-out;
@@ -707,10 +706,9 @@ img.character-image-placeholder {
 }
 
 #detail-right {
-  position: absolute;
-  right: 48px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: fixed;
+  right: 15vw;
+  top: 35vh;
   z-index: 1;
   max-width: 420px;
   text-align: right;
@@ -718,7 +716,7 @@ img.character-image-placeholder {
 
 #detail-context {
   font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 400;
   color: #F2F2F2;
   line-height: 1.9;
