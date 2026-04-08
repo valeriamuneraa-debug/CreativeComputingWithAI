@@ -500,6 +500,9 @@ async function runFlash(index) {
   const character    = CHARACTERS[index];
   const flashOverlay = document.getElementById('flash-overlay');
 
+  console.log('runFlash started — bridge shown');
+  document.body.style.transition = 'none';
+  document.getElementById('bridge-overlay').style.display = 'block';
   document.getElementById('app').style.visibility = 'hidden';
   flashOverlay.style.display = 'block';
 
@@ -537,13 +540,22 @@ async function runFlash(index) {
     el.style.display = 'none';
   }
 
-  // Clean up injected elements and hide overlay.
+  // Cover the gap before detail screen builds — show detail overlay at opacity 0
+  // so there is never a moment where neither overlay is covering the background.
+  console.log('flash ending — detail overlay set to display block opacity 0');
+  const detailOverlay = document.getElementById('detail-overlay');
+  detailOverlay.style.transition = 'none';
+  detailOverlay.style.opacity    = '0';
+  detailOverlay.style.display    = 'block';
+
+  // Clean up injected elements and hide flash overlay.
   imgs.forEach(el => el.remove());
   flashOverlay.style.display = 'none';
 }
 
 // Shows the character detail screen after the flash sequence completes.
 async function showDetail(index) {
+  console.log('showDetail started');
   const token      = ++detailToken;
   const character  = CHARACTERS[index];
 
@@ -568,11 +580,19 @@ async function showDetail(index) {
   detailName.textContent      = character.name;
   detailEraLabel.textContent  = character.era;
 
-  // Show overlay + sync mute button label to current state
+  // Sync mute button label to current state
   const muteBtn = document.getElementById('detail-mute');
   muteBtn.textContent = isMuted ? '\u266a unmute' : '\u266a mute';
 
-  detailOverlay.style.display = 'block';
+  // Fade the detail overlay in (already display:block at opacity:0 from runFlash)
+  console.log('detail fading in');
+  detailOverlay.style.transition = 'opacity 300ms ease-in-out';
+  detailOverlay.style.opacity    = '1';
+
+  // Detail overlay is now fully visible — release the black bridge
+  document.getElementById('bridge-overlay').style.display = 'none';
+  console.log('bridge hidden');
+  document.body.style.transition = 'background-color 400ms ease-in-out';
 
   // Fade in left side (name + era) over 400ms
   await sleep(16);

@@ -645,6 +645,18 @@ img.character-image-placeholder {
    FLASH OVERLAY
    Fullscreen hard-cut image sequence. z-index above everything.
    ============================================================ */
+#bridge-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000 !important;
+  z-index: 2999;
+  display: none;
+  pointer-events: none;
+}
+
 #flash-overlay {
   position: fixed;
   inset: 0;
