@@ -1,20 +1,236 @@
 // selector.js — Carousel navigation + character selection + intro sequence + character detail
 
 // ----------------------------------------------------------
+// ASSET IMPORTS — processed by Vite for correct production paths
+// ----------------------------------------------------------
+import char60s  from '../assets/images/character-60s-FINAL.png'
+import char70s  from '../assets/images/character-70s-FINAL.png'
+import char80s  from '../assets/images/character-80s-FINAL.png'
+import char90s  from '../assets/images/character-90s-FINAL.png'
+import char00s  from '../assets/images/character-00s-FINAL.png'
+import bg60s    from '../assets/images/background-60s-FINAL.png'
+import bg70s    from '../assets/images/background-70s-FINAL.png'
+import bg80s    from '../assets/images/background-80s-FINAL.png'
+import bg90s    from '../assets/images/background-90s-FINAL.png'
+import bg00s    from '../assets/images/background-00s-FINAL.png'
+import mood60s  from '../assets/images/moodboard-60s.jpg'
+import mood70s  from '../assets/images/moodboard-70s.jpg'
+import mood80s  from '../assets/images/moodboard-80s.jpg'
+import mood90s  from '../assets/images/moodboard-90s.jpg'
+import mood00s  from '../assets/images/moodboard-00s.jpg'
+import audio60s from '../assets/audio/audio-60s.mp3'
+import audio70s from '../assets/audio/audio-70s.mp3'
+import audio80s from '../assets/audio/audio-80s.mp3'
+import audio90s from '../assets/audio/audio-90s.mp3'
+import audio00s from '../assets/audio/audio-00s.mp3'
+
+import twiggy00 from '../assets/images/Twiggy/twiggy-00.jpeg'
+import twiggy01 from '../assets/images/Twiggy/twiggy-01.jpeg'
+import twiggy02 from '../assets/images/Twiggy/twiggy-02.jpeg'
+import twiggy03 from '../assets/images/Twiggy/twiggy-03.jpeg'
+import twiggy04 from '../assets/images/Twiggy/twiggy-04.jpeg'
+import twiggy05 from '../assets/images/Twiggy/twiggy-05.jpeg'
+import twiggy06 from '../assets/images/Twiggy/twiggy-06.jpeg'
+import twiggy07 from '../assets/images/Twiggy/twiggy-07.jpeg'
+import twiggy08 from '../assets/images/Twiggy/twiggy-08.jpeg'
+import twiggy09 from '../assets/images/Twiggy/twiggy-09.jpeg'
+import twiggy10 from '../assets/images/Twiggy/twiggy-10.jpeg'
+import twiggy11 from '../assets/images/Twiggy/twiggy-11.jpeg'
+import twiggy12 from '../assets/images/Twiggy/twiggy-12.jpeg'
+import twiggy13 from '../assets/images/Twiggy/twiggy-13.jpeg'
+import twiggy14 from '../assets/images/Twiggy/twiggy-14.jpeg'
+import twiggy15 from '../assets/images/Twiggy/twiggy-15.jpeg'
+import twiggy16 from '../assets/images/Twiggy/twiggy-16.jpeg'
+import twiggy17 from '../assets/images/Twiggy/twiggy-17.jpeg'
+import twiggy18 from '../assets/images/Twiggy/twiggy-18.jpeg'
+import twiggy19 from '../assets/images/Twiggy/twiggy-19.jpeg'
+import twiggy20 from '../assets/images/Twiggy/twiggy-20.jpeg'
+import twiggy21 from '../assets/images/Twiggy/twiggy-21.jpeg'
+import twiggy22 from '../assets/images/Twiggy/twiggy-22.jpeg'
+import twiggy23 from '../assets/images/Twiggy/twiggy-23.jpeg'
+import twiggy24 from '../assets/images/Twiggy/twiggy-24.jpeg'
+import twiggy25 from '../assets/images/Twiggy/twiggy-25.jpeg'
+import twiggy26 from '../assets/images/Twiggy/twiggy-26.jpeg'
+import twiggy27 from '../assets/images/Twiggy/twiggy-27.jpeg'
+import twiggy28 from '../assets/images/Twiggy/twiggy-28.jpeg'
+import twiggy29 from '../assets/images/Twiggy/twiggy-29.jpeg'
+
+import laurenHutton00 from '../assets/images/LaurenHutton/lauren-hutton-00.jpeg'
+import laurenHutton01 from '../assets/images/LaurenHutton/lauren-hutton-01.jpeg'
+import laurenHutton02 from '../assets/images/LaurenHutton/lauren-hutton-02.jpeg'
+import laurenHutton03 from '../assets/images/LaurenHutton/lauren-hutton-03.jpeg'
+import laurenHutton04 from '../assets/images/LaurenHutton/lauren-hutton-04.jpeg'
+import laurenHutton05 from '../assets/images/LaurenHutton/lauren-hutton-05.jpeg'
+import laurenHutton06 from '../assets/images/LaurenHutton/lauren-hutton-06.jpeg'
+import laurenHutton07 from '../assets/images/LaurenHutton/lauren-hutton-07.jpeg'
+import laurenHutton08 from '../assets/images/LaurenHutton/lauren-hutton-08.jpeg'
+import laurenHutton09 from '../assets/images/LaurenHutton/lauren-hutton-09.jpeg'
+import laurenHutton10 from '../assets/images/LaurenHutton/lauren-hutton-10.jpeg'
+import laurenHutton11 from '../assets/images/LaurenHutton/lauren-hutton-11.jpeg'
+import laurenHutton12 from '../assets/images/LaurenHutton/lauren-hutton-12.jpeg'
+import laurenHutton13 from '../assets/images/LaurenHutton/lauren-hutton-13.jpeg'
+import laurenHutton14 from '../assets/images/LaurenHutton/lauren-hutton-14.jpeg'
+import laurenHutton15 from '../assets/images/LaurenHutton/lauren-hutton-15.jpeg'
+import laurenHutton16 from '../assets/images/LaurenHutton/lauren-hutton-16.jpeg'
+import laurenHutton17 from '../assets/images/LaurenHutton/lauren-hutton-17.jpeg'
+import laurenHutton18 from '../assets/images/LaurenHutton/lauren-hutton-18.jpeg'
+import laurenHutton19 from '../assets/images/LaurenHutton/lauren-hutton-19.jpeg'
+import laurenHutton20 from '../assets/images/LaurenHutton/lauren-hutton-20.jpeg'
+import laurenHutton21 from '../assets/images/LaurenHutton/lauren-hutton-21.jpeg'
+import laurenHutton22 from '../assets/images/LaurenHutton/lauren-hutton-22.jpeg'
+import laurenHutton23 from '../assets/images/LaurenHutton/lauren-hutton-23.jpeg'
+import laurenHutton24 from '../assets/images/LaurenHutton/lauren-hutton-24.jpeg'
+import laurenHutton25 from '../assets/images/LaurenHutton/lauren-hutton-25.jpeg'
+import laurenHutton26 from '../assets/images/LaurenHutton/lauren-hutton-26.jpeg'
+import laurenHutton27 from '../assets/images/LaurenHutton/lauren-hutton-27.jpeg'
+import laurenHutton28 from '../assets/images/LaurenHutton/lauren-hutton-28.jpeg'
+import laurenHutton29 from '../assets/images/LaurenHutton/lauren-hutton-29.jpeg'
+
+import christieBrinkley00 from '../assets/images/ChristieBrinkley/christie-brinkley-00.jpeg'
+import christieBrinkley01 from '../assets/images/ChristieBrinkley/christie-brinkley-01.jpeg'
+import christieBrinkley02 from '../assets/images/ChristieBrinkley/christie-brinkley-02.jpeg'
+import christieBrinkley03 from '../assets/images/ChristieBrinkley/christie-brinkley-03.jpeg'
+import christieBrinkley04 from '../assets/images/ChristieBrinkley/christie-brinkley-04.jpeg'
+import christieBrinkley05 from '../assets/images/ChristieBrinkley/christie-brinkley-05.jpeg'
+import christieBrinkley06 from '../assets/images/ChristieBrinkley/christie-brinkley-06.jpeg'
+import christieBrinkley07 from '../assets/images/ChristieBrinkley/christie-brinkley-07.jpeg'
+import christieBrinkley08 from '../assets/images/ChristieBrinkley/christie-brinkley-08.jpeg'
+import christieBrinkley09 from '../assets/images/ChristieBrinkley/christie-brinkley-09.jpeg'
+import christieBrinkley10 from '../assets/images/ChristieBrinkley/christie-brinkley-10.jpeg'
+import christieBrinkley11 from '../assets/images/ChristieBrinkley/christie-brinkley-11.jpeg'
+import christieBrinkley12 from '../assets/images/ChristieBrinkley/christie-brinkley-12.jpeg'
+import christieBrinkley13 from '../assets/images/ChristieBrinkley/christie-brinkley-13.jpeg'
+import christieBrinkley14 from '../assets/images/ChristieBrinkley/christie-brinkley-14.jpeg'
+import christieBrinkley15 from '../assets/images/ChristieBrinkley/christie-brinkley-15.jpeg'
+import christieBrinkley16 from '../assets/images/ChristieBrinkley/christie-brinkley-16.jpeg'
+import christieBrinkley17 from '../assets/images/ChristieBrinkley/christie-brinkley-17.jpeg'
+import christieBrinkley18 from '../assets/images/ChristieBrinkley/christie-brinkley-18.jpeg'
+import christieBrinkley19 from '../assets/images/ChristieBrinkley/christie-brinkley-19.jpeg'
+import christieBrinkley20 from '../assets/images/ChristieBrinkley/christie-brinkley-20.jpeg'
+import christieBrinkley21 from '../assets/images/ChristieBrinkley/christie-brinkley-21.jpeg'
+import christieBrinkley22 from '../assets/images/ChristieBrinkley/christie-brinkley-22.jpeg'
+import christieBrinkley23 from '../assets/images/ChristieBrinkley/christie-brinkley-23.jpeg'
+import christieBrinkley24 from '../assets/images/ChristieBrinkley/christie-brinkley-24.jpeg'
+import christieBrinkley25 from '../assets/images/ChristieBrinkley/christie-brinkley-25.jpeg'
+import christieBrinkley26 from '../assets/images/ChristieBrinkley/christie-brinkley-26.jpeg'
+import christieBrinkley27 from '../assets/images/ChristieBrinkley/christie-brinkley-27.jpeg'
+import christieBrinkley28 from '../assets/images/ChristieBrinkley/christie-brinkley-28.jpeg'
+import christieBrinkley29 from '../assets/images/ChristieBrinkley/christie-brinkley-29.jpeg'
+
+import kateMoss00 from '../assets/images/KateMoss/kate-moss-00.jpeg'
+import kateMoss01 from '../assets/images/KateMoss/kate-moss-01.jpeg'
+import kateMoss02 from '../assets/images/KateMoss/kate-moss-02.jpeg'
+import kateMoss03 from '../assets/images/KateMoss/kate-moss-03.jpeg'
+import kateMoss04 from '../assets/images/KateMoss/kate-moss-04.jpeg'
+import kateMoss05 from '../assets/images/KateMoss/kate-moss-05.jpeg'
+import kateMoss06 from '../assets/images/KateMoss/kate-moss-06.jpeg'
+import kateMoss07 from '../assets/images/KateMoss/kate-moss-07.jpeg'
+import kateMoss08 from '../assets/images/KateMoss/kate-moss-08.jpeg'
+import kateMoss09 from '../assets/images/KateMoss/kate-moss-09.jpeg'
+import kateMoss10 from '../assets/images/KateMoss/kate-moss-10.jpeg'
+import kateMoss11 from '../assets/images/KateMoss/kate-moss-11.jpeg'
+import kateMoss12 from '../assets/images/KateMoss/kate-moss-12.jpeg'
+import kateMoss13 from '../assets/images/KateMoss/kate-moss-13.jpeg'
+import kateMoss14 from '../assets/images/KateMoss/kate-moss-14.jpeg'
+import kateMoss15 from '../assets/images/KateMoss/kate-moss-15.jpeg'
+import kateMoss16 from '../assets/images/KateMoss/kate-moss-16.jpeg'
+import kateMoss17 from '../assets/images/KateMoss/kate-moss-17.jpeg'
+import kateMoss18 from '../assets/images/KateMoss/kate-moss-18.jpeg'
+import kateMoss19 from '../assets/images/KateMoss/kate-moss-19.jpeg'
+import kateMoss20 from '../assets/images/KateMoss/kate-moss-20.jpeg'
+import kateMoss21 from '../assets/images/KateMoss/kate-moss-21.jpeg'
+import kateMoss22 from '../assets/images/KateMoss/kate-moss-22.jpeg'
+import kateMoss23 from '../assets/images/KateMoss/kate-moss-23.jpeg'
+import kateMoss24 from '../assets/images/KateMoss/kate-moss-24.jpeg'
+import kateMoss25 from '../assets/images/KateMoss/kate-moss-25.jpeg'
+import kateMoss26 from '../assets/images/KateMoss/kate-moss-26.jpeg'
+import kateMoss27 from '../assets/images/KateMoss/kate-moss-27.jpeg'
+import kateMoss28 from '../assets/images/KateMoss/kate-moss-28.jpeg'
+import kateMoss29 from '../assets/images/KateMoss/kate-moss-29.jpeg'
+
+import giseleBundchen00 from '../assets/images/GiseleBundchen/gisele-bundchen-00.jpeg'
+import giseleBundchen01 from '../assets/images/GiseleBundchen/gisele-bundchen-01.jpeg'
+import giseleBundchen02 from '../assets/images/GiseleBundchen/gisele-bundchen-02.jpeg'
+import giseleBundchen03 from '../assets/images/GiseleBundchen/gisele-bundchen-03.jpeg'
+import giseleBundchen04 from '../assets/images/GiseleBundchen/gisele-bundchen-04.jpeg'
+import giseleBundchen05 from '../assets/images/GiseleBundchen/gisele-bundchen-05.jpeg'
+import giseleBundchen06 from '../assets/images/GiseleBundchen/gisele-bundchen-06.jpeg'
+import giseleBundchen07 from '../assets/images/GiseleBundchen/gisele-bundchen-07.jpeg'
+import giseleBundchen08 from '../assets/images/GiseleBundchen/gisele-bundchen-08.jpeg'
+import giseleBundchen09 from '../assets/images/GiseleBundchen/gisele-bundchen-09.jpeg'
+import giseleBundchen10 from '../assets/images/GiseleBundchen/gisele-bundchen-10.jpeg'
+import giseleBundchen11 from '../assets/images/GiseleBundchen/gisele-bundchen-11.jpeg'
+import giseleBundchen12 from '../assets/images/GiseleBundchen/gisele-bundchen-12.jpeg'
+import giseleBundchen13 from '../assets/images/GiseleBundchen/gisele-bundchen-13.jpeg'
+import giseleBundchen14 from '../assets/images/GiseleBundchen/gisele-bundchen-14.jpeg'
+import giseleBundchen15 from '../assets/images/GiseleBundchen/gisele-bundchen-15.jpeg'
+import giseleBundchen16 from '../assets/images/GiseleBundchen/gisele-bundchen-16.jpeg'
+import giseleBundchen17 from '../assets/images/GiseleBundchen/gisele-bundchen-17.jpeg'
+import giseleBundchen18 from '../assets/images/GiseleBundchen/gisele-bundchen-18.jpeg'
+import giseleBundchen19 from '../assets/images/GiseleBundchen/gisele-bundchen-19.jpeg'
+import giseleBundchen20 from '../assets/images/GiseleBundchen/gisele-bundchen-20.jpeg'
+import giseleBundchen21 from '../assets/images/GiseleBundchen/gisele-bundchen-21.jpeg'
+import giseleBundchen22 from '../assets/images/GiseleBundchen/gisele-bundchen-22.jpeg'
+import giseleBundchen23 from '../assets/images/GiseleBundchen/gisele-bundchen-23.jpeg'
+import giseleBundchen24 from '../assets/images/GiseleBundchen/gisele-bundchen-24.jpeg'
+import giseleBundchen25 from '../assets/images/GiseleBundchen/gisele-bundchen-25.jpeg'
+import giseleBundchen26 from '../assets/images/GiseleBundchen/gisele-bundchen-26.jpeg'
+import giseleBundchen27 from '../assets/images/GiseleBundchen/gisele-bundchen-27.jpeg'
+import giseleBundchen28 from '../assets/images/GiseleBundchen/gisele-bundchen-28.jpeg'
+import giseleBundchen29 from '../assets/images/GiseleBundchen/gisele-bundchen-29.jpeg'
+
+// ----------------------------------------------------------
+// FLASH IMAGE ARRAYS — ordered 00–29 per character
+// ----------------------------------------------------------
+const twiggyFlash = [
+  twiggy00, twiggy01, twiggy02, twiggy03, twiggy04, twiggy05,
+  twiggy06, twiggy07, twiggy08, twiggy09, twiggy10, twiggy11,
+  twiggy12, twiggy13, twiggy14, twiggy15, twiggy16, twiggy17,
+  twiggy18, twiggy19, twiggy20, twiggy21, twiggy22, twiggy23,
+  twiggy24, twiggy25, twiggy26, twiggy27, twiggy28, twiggy29,
+];
+const laurenHuttonFlash = [
+  laurenHutton00, laurenHutton01, laurenHutton02, laurenHutton03, laurenHutton04, laurenHutton05,
+  laurenHutton06, laurenHutton07, laurenHutton08, laurenHutton09, laurenHutton10, laurenHutton11,
+  laurenHutton12, laurenHutton13, laurenHutton14, laurenHutton15, laurenHutton16, laurenHutton17,
+  laurenHutton18, laurenHutton19, laurenHutton20, laurenHutton21, laurenHutton22, laurenHutton23,
+  laurenHutton24, laurenHutton25, laurenHutton26, laurenHutton27, laurenHutton28, laurenHutton29,
+];
+const christieBrinkleyFlash = [
+  christieBrinkley00, christieBrinkley01, christieBrinkley02, christieBrinkley03, christieBrinkley04, christieBrinkley05,
+  christieBrinkley06, christieBrinkley07, christieBrinkley08, christieBrinkley09, christieBrinkley10, christieBrinkley11,
+  christieBrinkley12, christieBrinkley13, christieBrinkley14, christieBrinkley15, christieBrinkley16, christieBrinkley17,
+  christieBrinkley18, christieBrinkley19, christieBrinkley20, christieBrinkley21, christieBrinkley22, christieBrinkley23,
+  christieBrinkley24, christieBrinkley25, christieBrinkley26, christieBrinkley27, christieBrinkley28, christieBrinkley29,
+];
+const kateMossFlash = [
+  kateMoss00, kateMoss01, kateMoss02, kateMoss03, kateMoss04, kateMoss05,
+  kateMoss06, kateMoss07, kateMoss08, kateMoss09, kateMoss10, kateMoss11,
+  kateMoss12, kateMoss13, kateMoss14, kateMoss15, kateMoss16, kateMoss17,
+  kateMoss18, kateMoss19, kateMoss20, kateMoss21, kateMoss22, kateMoss23,
+  kateMoss24, kateMoss25, kateMoss26, kateMoss27, kateMoss28, kateMoss29,
+];
+const giseleBundchenFlash = [
+  giseleBundchen00, giseleBundchen01, giseleBundchen02, giseleBundchen03, giseleBundchen04, giseleBundchen05,
+  giseleBundchen06, giseleBundchen07, giseleBundchen08, giseleBundchen09, giseleBundchen10, giseleBundchen11,
+  giseleBundchen12, giseleBundchen13, giseleBundchen14, giseleBundchen15, giseleBundchen16, giseleBundchen17,
+  giseleBundchen18, giseleBundchen19, giseleBundchen20, giseleBundchen21, giseleBundchen22, giseleBundchen23,
+  giseleBundchen24, giseleBundchen25, giseleBundchen26, giseleBundchen27, giseleBundchen28, giseleBundchen29,
+];
+
+// ----------------------------------------------------------
 // CHARACTER DATA
-// Paths use ./src/assets/images/ — correct format for Vite dev server.
 // ----------------------------------------------------------
 const CHARACTERS = [
   {
     era:           '1960s',
     name:          'Twiggy',
     bgColor:       '#3E2A35',
-    characterImg:  './src/assets/images/character-60s-FINAL.png',
-    backgroundImg: './src/assets/images/background-60s-FINAL.png',
-    flashFolder:   './src/assets/images/Twiggy/',
-    flashPrefix:   'twiggy',
-    moodboard:     './src/assets/images/moodboard-60s.jpg',
-    audio:         './src/assets/audio/audio-60s.mp3',
+    characterImg:  char60s,
+    backgroundImg: bg60s,
+    flashImages:   twiggyFlash,
+    moodboard:     mood60s,
+    audio:         audio60s,
     description:
       'Lesley Lawson, known simply as Twiggy, became the face of a generation that refused ' +
       'to dress like its mothers. At seventeen, her androgynous frame and graphic mod eye became ' +
@@ -26,12 +242,11 @@ const CHARACTERS = [
     era:           '1970s',
     name:          'Lauren Hutton',
     bgColor:       '#4A4A4A',
-    characterImg:  './src/assets/images/character-70s-FINAL.png',
-    backgroundImg: './src/assets/images/background-70s-FINAL.png',
-    flashFolder:   './src/assets/images/LaurenHutton/',
-    flashPrefix:   'lauren-hutton',
-    moodboard:     './src/assets/images/moodboard-70s.jpg',
-    audio:         './src/assets/audio/audio-70s.mp3',
+    characterImg:  char70s,
+    backgroundImg: bg70s,
+    flashImages:   laurenHuttonFlash,
+    moodboard:     mood70s,
+    audio:         audio70s,
     description:
       'Lauren Hutton brought something fashion had long feared: realness. The gap in her teeth, ' +
       'the sun in her skin, the ease with which she occupied space \u2014 she made the camera believe her. ' +
@@ -43,12 +258,11 @@ const CHARACTERS = [
     era:           '1980s',
     name:          'Christie Brinkley',
     bgColor:       '#555B60',
-    characterImg:  './src/assets/images/character-80s-FINAL.png',
-    backgroundImg: './src/assets/images/background-80s-FINAL.png',
-    flashFolder:   './src/assets/images/ChristieBrinkley/',
-    flashPrefix:   'christie-brinkley',
-    moodboard:     './src/assets/images/moodboard-80s.jpg',
-    audio:         './src/assets/audio/audio-80s.mp3',
+    characterImg:  char80s,
+    backgroundImg: bg80s,
+    flashImages:   christieBrinkleyFlash,
+    moodboard:     mood80s,
+    audio:         audio80s,
     description:
       'Christie Brinkley was not just beautiful \u2014 she was abundant. In a decade that measured ' +
       'success in excess, she embodied everything the era wanted: health, gold, volume, and a smile ' +
@@ -60,12 +274,11 @@ const CHARACTERS = [
     era:           '1990s',
     name:          'Kate Moss',
     bgColor:       '#B2B2B2',
-    characterImg:  './src/assets/images/character-90s-FINAL.png',
-    backgroundImg: './src/assets/images/background-90s-FINAL.png',
-    flashFolder:   './src/assets/images/KateMoss/',
-    flashPrefix:   'kate-moss',
-    moodboard:     './src/assets/images/moodboard-90s.jpg',
-    audio:         './src/assets/audio/audio-90s.mp3',
+    characterImg:  char90s,
+    backgroundImg: bg90s,
+    flashImages:   kateMossFlash,
+    moodboard:     mood90s,
+    audio:         audio90s,
     description:
       'Kate Moss arrived as a correction. After a decade of athletic excess, she offered ' +
       'subtraction \u2014 pale skin, a slip of fabric, eyes that looked through you rather than at you. ' +
@@ -77,12 +290,11 @@ const CHARACTERS = [
     era:           '2000s',
     name:          'Gisele B\u00fcndchen',
     bgColor:       '#4D5663',
-    characterImg:  './src/assets/images/character-00s-FINAL.png',
-    backgroundImg: './src/assets/images/background-00s-FINAL.png',
-    flashFolder:   './src/assets/images/GiseleBundchen/',
-    flashPrefix:   'gisele-bundchen',
-    moodboard:     './src/assets/images/moodboard-00s.jpg',
-    audio:         './src/assets/audio/audio-00s.mp3',
+    characterImg:  char00s,
+    backgroundImg: bg00s,
+    flashImages:   giseleBundchenFlash,
+    moodboard:     mood00s,
+    audio:         audio00s,
     description:
       'Gisele B\u00fcndchen walked into the early 2000s like a weather system. In an era of logomania ' +
       'and paparazzi flashbulbs, she was the only thing worth photographing. John Galliano\u2019s Dior ' +
@@ -291,13 +503,10 @@ async function runFlash(index) {
   document.getElementById('app').style.visibility = 'hidden';
   flashOverlay.style.display = 'block';
 
-  const ext = await detectFlashFormat(character);
-
-  // Build 30 img elements, inject them all hidden, wait for full decode.
-  const imgs = Array.from({ length: 30 }, (_, i) => {
-    const num = String(i).padStart(2, '0');
-    const el  = document.createElement('img');
-    el.src    = `${character.flashFolder}${character.flashPrefix}-${num}.${ext}`;
+  // Build img elements from Vite-imported URLs, inject hidden, wait for full decode.
+  const imgs = character.flashImages.map(src => {
+    const el = document.createElement('img');
+    el.src   = src;
     el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;';
     flashOverlay.appendChild(el);
     return el;
