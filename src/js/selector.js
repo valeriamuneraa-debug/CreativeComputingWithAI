@@ -501,7 +501,8 @@ async function runFlash(index) {
   const flashOverlay = document.getElementById('flash-overlay');
 
   console.log('runFlash started — bridge shown');
-  document.body.style.transition = 'none';
+  document.body.style.transition       = 'none';
+  document.body.style.backgroundColor  = '#000000';
   document.getElementById('bridge-overlay').style.display = 'block';
   document.getElementById('app').style.visibility = 'hidden';
   flashOverlay.style.display = 'block';
@@ -592,7 +593,8 @@ async function showDetail(index) {
   // Detail overlay is now fully visible — release the black bridge
   document.getElementById('bridge-overlay').style.display = 'none';
   console.log('bridge hidden');
-  document.body.style.transition = 'background-color 400ms ease-in-out';
+  document.body.style.backgroundColor = CHARACTERS[index].bgColor;
+  document.body.style.transition       = 'background-color 400ms ease-in-out';
 
   // Fade in left side (name + era) over 400ms
   await sleep(16);
