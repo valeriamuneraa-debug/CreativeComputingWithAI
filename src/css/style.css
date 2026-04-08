@@ -71,8 +71,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* pointer-events: none keeps the selector interactive underneath */
-  pointer-events: none;
+  pointer-events: all;
   animation: intro-exit 4s ease-in-out 1s forwards;
 }
 
@@ -192,6 +191,27 @@ body {
   color: #000000;
 }
 
+/* Skip intro button — subtle top-right corner */
+#skip-intro {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: rgba(242, 242, 242, 0.5);
+  cursor: pointer;
+  transition: color 200ms ease;
+  z-index: 1;
+}
+
+#skip-intro:hover {
+  color: rgba(242, 242, 242, 0.9);
+}
+
 /* Blinking cursor — shown during typewriter, hidden when done */
 .intro-cursor {
   display: inline;
@@ -293,6 +313,7 @@ body {
 .character-card--1960s .character-image-placeholder {
   background: transparent;
   filter: grayscale(1) contrast(0.9) brightness(1.05);
+  transition: filter 400ms ease-in-out;
 }
 
 .character-card--1960s .character-image-placeholder:hover {
@@ -334,6 +355,25 @@ body {
   );
 }
 
+.character-card--1970s:hover::after {
+  background: radial-gradient(
+    ellipse 40% 60% at 50% 25%,
+    rgba(230, 210, 160, 0.20) 0%,
+    rgba(230, 210, 160, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+.character-card--1970s .era-background {
+  filter: grayscale(1) brightness(0.85);
+  transition: filter 400ms ease-in-out;
+}
+
+.character-card--1970s.bg-active .era-background,
+.character-card--1970s.selected .era-background {
+  filter: grayscale(0) brightness(1);
+}
+
 /* --- 1980s — Christie Brinkley (Versace) ---
    Initial: muted gray-cream
    Hover: silver and gold flash + warm golden halo (radial, gold + silver)
@@ -345,6 +385,7 @@ body {
 .character-card--1980s .character-image-placeholder {
   background: transparent;
   filter: grayscale(1) contrast(0.65) brightness(0.85) sepia(0.1);
+  transition: filter 400ms ease-in-out;
 }
 
 .character-card--1980s .character-image-placeholder:hover {
@@ -417,17 +458,25 @@ body {
 
 /* Asymmetric spotlight — offset center simulates roving stage light */
 .character-card--2000s::after {
+  left: 0;
+  right: 0;
+  width: 100%;
   background: radial-gradient(
-    ellipse at 40% 35%,
+    ellipse 40% 60% at 50% 25%,
     rgba(176, 145, 104, 0.6) 0%,   /* --era-2000s-hardware */
     rgba(146,  94,  77, 0.25) 38%, /* --era-2000s-accent */
     transparent 65%
   );
 }
 
+.character-card--2000s .character-image-placeholder {
+  height: 75vh;
+  width: auto;
+}
+
 .character-card--2000s .character-image-placeholder img,
 .character-card--2000s img {
-  height: 65vh;
+  height: 75vh;
   width: auto;
 }
 
@@ -661,6 +710,26 @@ img.character-image-placeholder {
 
 #detail-back:hover {
   opacity: 0.6;
+}
+
+#detail-mute {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  z-index: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: rgba(242, 242, 242, 0.5);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+#detail-mute:hover {
+  color: rgba(242, 242, 242, 0.9);
 }
 
 #detail-right-gradient {

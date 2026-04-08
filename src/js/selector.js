@@ -14,6 +14,7 @@ const CHARACTERS = [
     flashFolder:   './src/assets/images/Twiggy/',
     flashPrefix:   'twiggy',
     moodboard:     './src/assets/images/moodboard-60s.jpg',
+    audio:         './src/assets/audio/audio-60s.mp3',
     description:
       'Lesley Lawson, known simply as Twiggy, became the face of a generation that refused ' +
       'to dress like its mothers. At seventeen, her androgynous frame and graphic mod eye became ' +
@@ -30,6 +31,7 @@ const CHARACTERS = [
     flashFolder:   './src/assets/images/LaurenHutton/',
     flashPrefix:   'lauren-hutton',
     moodboard:     './src/assets/images/moodboard-70s.jpg',
+    audio:         './src/assets/audio/audio-70s.mp3',
     description:
       'Lauren Hutton brought something fashion had long feared: realness. The gap in her teeth, ' +
       'the sun in her skin, the ease with which she occupied space \u2014 she made the camera believe her. ' +
@@ -46,6 +48,7 @@ const CHARACTERS = [
     flashFolder:   './src/assets/images/ChristieBrinkley/',
     flashPrefix:   'christie-brinkley',
     moodboard:     './src/assets/images/moodboard-80s.jpg',
+    audio:         './src/assets/audio/audio-80s.mp3',
     description:
       'Christie Brinkley was not just beautiful \u2014 she was abundant. In a decade that measured ' +
       'success in excess, she embodied everything the era wanted: health, gold, volume, and a smile ' +
@@ -62,6 +65,7 @@ const CHARACTERS = [
     flashFolder:   './src/assets/images/KateMoss/',
     flashPrefix:   'kate-moss',
     moodboard:     './src/assets/images/moodboard-90s.jpg',
+    audio:         './src/assets/audio/audio-90s.mp3',
     description:
       'Kate Moss arrived as a correction. After a decade of athletic excess, she offered ' +
       'subtraction \u2014 pale skin, a slip of fabric, eyes that looked through you rather than at you. ' +
@@ -78,6 +82,7 @@ const CHARACTERS = [
     flashFolder:   './src/assets/images/GiseleBundchen/',
     flashPrefix:   'gisele-bundchen',
     moodboard:     './src/assets/images/moodboard-00s.jpg',
+    audio:         './src/assets/audio/audio-00s.mp3',
     description:
       'Gisele B\u00fcndchen walked into the early 2000s like a weather system. In an era of logomania ' +
       'and paparazzi flashbulbs, she was the only thing worth photographing. John Galliano\u2019s Dior ' +
@@ -97,9 +102,11 @@ function sleep(ms) {
 // Types text into textEl one character at a time.
 // cursorEl blinks while typing, disappears when done.
 // 28ms per character; 120ms pause after . or ,
-async function typewriter(textEl, cursorEl, text) {
+// Pass introToken snapshot as `token` — returns early if token is invalidated.
+async function typewriter(textEl, cursorEl, text, token) {
   cursorEl.classList.remove('hidden');
   for (const char of text) {
+    if (introToken !== token) return;
     textEl.textContent += char;
     const delay = (char === '.' || char === ',') ? 120 : 28;
     await sleep(delay);
@@ -111,17 +118,40 @@ async function typewriter(textEl, cursorEl, text) {
 // INTRO SEQUENCE
 // DÉFILÉ stage is unchanged. Stages 1 and 2 run after it fades.
 // ----------------------------------------------------------
+// Shared fade-out + cleanup for both the skip button and the enter button.
+async function closeIntro(overlay, fadeDuration) {
+  overlay.style.transition = `opacity ${fadeDuration}ms ease-in-out`;
+  overlay.style.opacity    = '0';
+  await sleep(fadeDuration);
+  document.getElementById('app').style.pointerEvents = 'auto';
+  overlay.style.display = 'none';
+  document.body.focus();
+}
+
 async function runIntro() {
+  const token = ++introToken;
+
   // ---- DÉFILÉ ----
-  // Cancel the CSS exit animation on the overlay — JS drives everything.
-  // The overlay itself NEVER changes opacity here; only its content fades.
   const overlay       = document.getElementById('intro-overlay');
   const defileContent = overlay.querySelector('.intro-content');
+  const skipBtn       = document.getElementById('skip-intro');
   overlay.style.animation = 'none';
+
+  // Block pointer events on the carousel while intro is visible
+  document.getElementById('app').style.pointerEvents = 'none';
+
+  // Skip button — cancels sequence and fades overlay immediately
+  skipBtn.addEventListener('click', async () => {
+    introToken++;  // invalidate any running typewriter or sleep checks
+    await closeIntro(overlay, 400);
+  }, { once: true });
+
   defileContent.style.transition = 'opacity 600ms ease-in-out';
   await sleep(2000);
+  if (introToken !== token) return;
   defileContent.style.opacity = '0';
   await sleep(600);
+  if (introToken !== token) return;
   defileContent.style.display = 'none';
 
   // ---- Stage 1: Quote screen ----
@@ -135,17 +165,21 @@ async function runIntro() {
 
   await typewriter(
     s1QuoteText, s1QCursor,
-    '\u201cFashion is a language that creates itself in clothes to interpret reality.\u201d'
+    '\u201cFashion is a language that creates itself in clothes to interpret reality.\u201d',
+    token
   );
-  await typewriter(s1AttrText, s1ACursor, '— Karl Lagerfeld.');
+  if (introToken !== token) return;
+  await typewriter(s1AttrText, s1ACursor, '— Karl Lagerfeld.', token);
+  if (introToken !== token) return;
 
-  // 3-second hold — cursors already hidden by typewriter
   await sleep(3000);
+  if (introToken !== token) return;
 
   // Fade out Stage 1 over 800ms
   stage1.style.transition = 'opacity 800ms ease-in-out';
   stage1.style.opacity    = '0';
   await sleep(800);
+  if (introToken !== token) return;
   stage1.style.display = 'none';
 
   // ---- Stage 2: Archive + button screen ----
@@ -163,21 +197,24 @@ async function runIntro() {
     'Five decades. Five women. Five moments that changed the way the world dressed. ' +
     'This archive traces the evolution of high fashion from the geometric rebellion ' +
     'of the 1960s to the theatrical maximalism of the early 2000s \u2014 through the ' +
-    'garments, the designers, and the icons who wore them.'
+    'garments, the designers, and the icons who wore them.',
+    token
   );
-  await typewriter(s2CtaText, s2CCursor, 'Choose your era.');
+  if (introToken !== token) return;
+  await typewriter(s2CtaText, s2CCursor, 'Choose your era.', token);
+  if (introToken !== token) return;
 
   // 600ms then fade in button
   await sleep(600);
+  if (introToken !== token) return;
   introBtn.style.pointerEvents = 'auto';
   introBtn.style.opacity       = '1';
 
-  // Button click — fade out the entire overlay over 800ms, reveal character selector
+  // Enter button — fade out over 800ms
   introBtn.addEventListener('click', async () => {
-    overlay.style.transition = 'opacity 800ms ease-in-out';
-    overlay.style.opacity    = '0';
-    await sleep(800);
-    overlay.style.display = 'none';
+    introToken++;
+    await closeIntro(overlay, 800);
+    introBtn.blur();
   });
 }
 
@@ -185,8 +222,29 @@ async function runIntro() {
 // CHARACTER DETAIL — flash sequence + detail screen
 // ----------------------------------------------------------
 
+// Token used to cancel the intro sequence when skip is clicked.
+let introToken  = 0;
 // Token used to cancel an in-progress detail typewriter when back is clicked.
 let detailToken = 0;
+
+// ----------------------------------------------------------
+// AUDIO
+// ----------------------------------------------------------
+const eraAudio = new Audio();
+eraAudio.loop  = true;
+let isMuted    = false;
+
+// Smoothly ramps audio volume from `from` to `to` over `duration` ms.
+async function fadeVolume(from, to, duration) {
+  const steps    = 20;
+  const interval = duration / steps;
+  const delta    = (to - from) / steps;
+  eraAudio.volume = Math.max(0, Math.min(1, from));
+  for (let i = 0; i < steps; i++) {
+    await sleep(interval);
+    eraAudio.volume = Math.max(0, Math.min(1, eraAudio.volume + delta));
+  }
+}
 
 // Probes image-00 for a character's flash set to find which extension works.
 // Returns 'jpg' | 'png' | 'webp' | 'avif' (falls back to 'jpg').
@@ -224,24 +282,54 @@ async function resolveFormat(path) {
 }
 
 // Runs the 30-image hard-cut flash sequence for a character.
-// Detects the working image format once before the loop.
+// All 30 img elements are injected into the DOM and decoded upfront;
+// the loop shows/hides them one at a time to eliminate src-swap delay.
 async function runFlash(index) {
   const character    = CHARACTERS[index];
   const flashOverlay = document.getElementById('flash-overlay');
-  const flashImg     = document.getElementById('flash-img');
 
   document.getElementById('app').style.visibility = 'hidden';
   flashOverlay.style.display = 'block';
 
   const ext = await detectFlashFormat(character);
 
-  for (let i = 0; i < 30; i++) {
+  // Build 30 img elements, inject them all hidden, wait for full decode.
+  const imgs = Array.from({ length: 30 }, (_, i) => {
     const num = String(i).padStart(2, '0');
-    flashImg.src = `${character.flashFolder}${character.flashPrefix}-${num}.${ext}`;
+    const el  = document.createElement('img');
+    el.src    = `${character.flashFolder}${character.flashPrefix}-${num}.${ext}`;
+    el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;';
+    flashOverlay.appendChild(el);
+    return el;
+  });
+
+  await Promise.all(imgs.map(el => new Promise(resolve => {
+    if (el.complete) { resolve(); return; }
+    el.onload  = resolve;
+    el.onerror = resolve;
+  })));
+
+  // Start era audio at the exact moment the first frame appears.
+  // Fade out any currently playing audio first (400ms), then start new track.
+  if (!eraAudio.paused) {
+    await fadeVolume(eraAudio.volume, 0, 400);
+    eraAudio.pause();
+  }
+  eraAudio.src         = character.audio;
+  eraAudio.currentTime = 0;
+  eraAudio.volume      = 0;
+  eraAudio.play().catch(() => {});
+  if (!isMuted) fadeVolume(0, 0.7, 1000);  // fire-and-forget fade-in
+
+  // Show each frame for exactly 100ms, no src swap needed.
+  for (const el of imgs) {
+    el.style.display = 'block';
     await sleep(100);
+    el.style.display = 'none';
   }
 
-  flashImg.src = '';
+  // Clean up injected elements and hide overlay.
+  imgs.forEach(el => el.remove());
   flashOverlay.style.display = 'none';
 }
 
@@ -271,7 +359,10 @@ async function showDetail(index) {
   detailName.textContent      = character.name;
   detailEraLabel.textContent  = character.era;
 
-  // Show overlay
+  // Show overlay + sync mute button label to current state
+  const muteBtn = document.getElementById('detail-mute');
+  muteBtn.textContent = isMuted ? '\u266a unmute' : '\u266a mute';
+
   detailOverlay.style.display = 'block';
 
   // Fade in left side (name + era) over 400ms
@@ -314,6 +405,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const bg = card.querySelector('.era-background');
     bg.style.backgroundImage = `url('${CHARACTERS[i].backgroundImg}')`;
   });
+
+  // ----------------------------------------------------------
+  // 1970s BACKGROUND — reveal color only on character image hover
+  // ----------------------------------------------------------
+  const card1970s = cards.find(c => c.dataset.era === '1970s');
+  if (card1970s) {
+    const img1970s = card1970s.querySelector('.character-image-placeholder');
+    img1970s.addEventListener('mouseenter', () => card1970s.classList.add('bg-active'));
+    img1970s.addEventListener('mouseleave', () => card1970s.classList.remove('bg-active'));
+  }
 
   // ----------------------------------------------------------
   // BODY BACKGROUND — smooth color transition between eras
@@ -387,6 +488,9 @@ document.addEventListener('DOMContentLoaded', () => {
   detailBack.addEventListener('click', async () => {
     detailToken++;  // cancel any in-progress typewriter
 
+    // Fade out audio over 800ms (fire-and-forget alongside overlay fade)
+    fadeVolume(eraAudio.volume, 0, 800).then(() => eraAudio.pause());
+
     // Restore selector and correct body color BEFORE overlay fades
     document.body.style.backgroundColor = CHARACTERS[activeIndex].bgColor;
     document.getElementById('app').style.visibility = 'visible';
@@ -399,5 +503,19 @@ document.addEventListener('DOMContentLoaded', () => {
     detailOverlay.style.opacity    = '';
     detailOverlay.style.transition = '';
     detailLeft.style.opacity       = '0';
+  });
+
+  // ----------------------------------------------------------
+  // MUTE BUTTON
+  // ----------------------------------------------------------
+  const muteBtn = document.getElementById('detail-mute');
+  muteBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    muteBtn.textContent = isMuted ? '\u266a unmute' : '\u266a mute';
+    if (isMuted) {
+      eraAudio.volume = 0;
+    } else {
+      fadeVolume(0, 0.7, 500);
+    }
   });
 });

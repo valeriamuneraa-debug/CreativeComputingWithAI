@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body tabindex="-1">
 
     <!-- INTRO OVERLAY — persistent black backdrop, never fades until button click -->
     <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
@@ -31,6 +31,9 @@
           </p>
         </div>
       </div>
+
+      <!-- Skip intro button — always visible while overlay is shown -->
+      <button id="skip-intro">skip intro »</button>
 
       <!-- Stage 2: Archive + button screen — shown after Stage 1 fades -->
       <div id="intro-stage-2">
@@ -211,6 +214,7 @@
     <!-- Detail overlay — character detail screen after flash -->
     <div id="detail-overlay">
       <button id="detail-back">&#8592; BACK</button>
+      <button id="detail-mute">&#9834; mute</button>
       <div id="detail-moodboard">
         <img id="detail-moodboard-img" src="" alt="">
         <div id="detail-moodboard-dim"></div>
